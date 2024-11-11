@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'Please provide your email'],
+    index: true,
     unique: true,
     lowercase: true,
     validate: {
@@ -113,6 +114,7 @@ userSchema.methods.createPasswordResetToken = function () {
   return resetToken;
 };
 
+userSchema.index({ email: 1 }, { unique: true });
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
